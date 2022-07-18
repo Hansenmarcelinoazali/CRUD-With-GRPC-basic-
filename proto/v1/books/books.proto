@@ -1,0 +1,75 @@
+syntax = "proto3";
+
+package api.latihan.v1.health;
+
+option go_package = "latihan/proto/v1/books";
+
+import "lib/google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
+message Response {
+    bool success               = 1;
+    string code                = 2;
+    string desc                = 3;
+    repeated Books data         = 4;
+}
+
+message ResponseCreate{
+    // string inputdata = 1;
+    bool success               = 1;
+    string code                = 2;
+    string desc                = 3;
+    Books books = 5;
+}
+
+message ResponseUpdateData {
+    bool success               = 1;
+    string code                = 2;
+    string desc                = 3;
+    Books books = 4;
+}
+
+message InputBooks{
+    string namebook = 1;
+    string author = 2;
+}
+
+message Books  {
+	// string no       =3;
+	string namebook =1;
+	string author   =2;
+}
+
+message UpdateBookData {
+    int32 no =3;
+    string namebook = 1;
+    string author =2;
+}
+
+service BookService {
+    rpc Get(google.protobuf.Empty) returns (Response) {
+        option (google.api.http) = {
+            get : "/api/go-grpc-learning/health"
+        };
+    }
+    rpc Create(Books) returns (ResponseCreate){
+        option (google.api.http) = {
+            post:"/api/createbook"
+            body:"*"
+        };
+    }
+
+    rpc GetAll(google.protobuf.Empty) returns (Response){
+        option (google.api.http) = {
+            get : "/api/get/alldata"
+        };
+    }
+
+    rpc UpdateData(UpdateBookData) returns( ResponseUpdateData){
+        option (google.api.http) = {
+            put :"/api/updatebooksdata"
+            body :"*"
+        };
+    }
+}
+

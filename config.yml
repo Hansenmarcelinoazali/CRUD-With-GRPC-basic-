@@ -1,0 +1,15 @@
+env: development
+server:
+  host: 127.0.0.1
+  grpc:
+    port: 5566
+  rest:
+    port: 8080
+
+
+postgres:
+  host: 127.0.0.1
+  port: 5432
+  dbname: book
+  user : postgres
+  pass : password
